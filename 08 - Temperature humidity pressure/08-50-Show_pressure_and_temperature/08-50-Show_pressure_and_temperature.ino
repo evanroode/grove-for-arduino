@@ -16,30 +16,31 @@
 #include <U8g2lib.h>  // Install the U8g2 by searching it by name in the Library Manager.
                       // Documentation: https://github.com/olikraus/u8g2/wiki/u8g2reference
 #include <Wire.h>
-#include "Seeed_BMP280.h"
+#include "Seeed_BME280.h"
 
 U8G2_SSD1306_128X64_NONAME_1_HW_I2C u8g2(U8G2_R2, /* reset=*/U8X8_PIN_NONE);
 
-BMP280 bmp280;
+BME280 bme280;
 
 float temp = 0, pres = 0;
 
 void setup() {
-  if(!bmp280.init()){
+  if(!bme280.init()){
     Serial.println("Device error!");
   }
 
+  u8g2.setBusClock(100000);   // Needed for Arduino Uno
   u8g2.begin();
 }
 
 void loop() {
-  temp = bmp280.getTemperature();
-  pres = bmp280.getPressure();
-  print_bmp280_readings();
+  temp = bme280.getTemperature();
+  pres = bme280.getPressure();
+  print_bme280_readings();
   delay(2000);
 }
 
-void print_bmp280_readings()
+void print_bme280_readings()
 {
   u8g2_uint_t x_position_temp = 0;
   u8g2_uint_t y_position_temp = 22;
@@ -73,7 +74,7 @@ void print_bmp280_readings()
 
       // Print a text label
       u8g2.setFont(u8g2_font_tenthinnerguys_t_all);
-      u8g2.drawStr(0, 60,  "BMP280");
+      u8g2.drawStr(0, 60,  "BME280");
 
   } while ( u8g2.nextPage() );
 
