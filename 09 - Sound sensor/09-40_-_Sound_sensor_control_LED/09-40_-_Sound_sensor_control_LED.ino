@@ -31,6 +31,7 @@ void setup()
 {
   pinMode(led_pin, OUTPUT);
   Serial.begin(9600);
+  u8g2.setBusClock(100000);   // Needed for Arduino Uno
   u8g2.begin();
 }
 
@@ -74,13 +75,13 @@ void show_sound(long sound_volume)
     // Display a visual "representation" of the sound loudness.
     for (int point = 0; point < sizeof(x) / 2 - 1; point++)
     {
-      if (sound_volume < 330)
+      if (sound_volume < 60)
       {
         digitalWrite(led_pin, LOW);
         u8g2.drawStr(0, 15,  "Low");
         u8g2.drawLine(  x[point], y_low[point], x[point + 1], y_low[point + 1]);
       }
-      else if (sound_volume < 400)
+      else if (sound_volume < 100)
       {
         digitalWrite(led_pin, LOW);
         u8g2.drawStr(0, 15,  "Medium");

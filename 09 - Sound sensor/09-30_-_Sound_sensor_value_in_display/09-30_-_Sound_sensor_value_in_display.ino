@@ -28,6 +28,7 @@ int y_high[]   = { 30,30,10,60,10,60,10,60,10,30,30  };
 void setup()
 {
     Serial.begin(9600);
+    u8g2.setBusClock(100000);   // Needed for Arduino Uno
     u8g2.begin();
 }
 
@@ -69,9 +70,9 @@ void show_sound(long sound_volume)
       // Display a visual "representation" of the sound loudness.
       for (int point=0;point<sizeof(x)/2-1;point++)
       {
-        if (sound_volume < 230)
+        if (sound_volume < 60)
           u8g2.drawLine(  x[point], y_low[point],x[point+1], y_low[point+1]);
-        else if (sound_volume < 300)
+        else if (sound_volume < 80)
           u8g2.drawLine(  x[point],y_medium[point],x[point+1],y_medium[point+1]);
         else
           u8g2.drawLine(  x[point],y_high[point],x[point+1],y_high[point+1]);
