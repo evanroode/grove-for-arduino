@@ -38,6 +38,7 @@ void setup() {
   LIS.setOutputDataRate(LIS3DHTR_DATARATE_50HZ);
   LIS.setHighSolution(true); //High solution enable
 
+  u8g2.setBusClock(100000);   // Needed for Arduino Uno
   u8g2.begin();
 
 }
@@ -143,9 +144,9 @@ void print_sensor_readings()
 
   // Choose the collision values experimentally. Smaller values result in
   // higher sensitivity.
-  if (  accel_z > 1.2 || accel_z < -1.2 ||
-        accel_y > 0.1 || accel_y < -0.1 ||
-        accel_x > 0.1 || accel_x < -0.1 )
+  if (  accel_z > 1.3 || accel_z < -1.3 ||
+        accel_y > 0.2 || accel_y < -0.2 ||
+        accel_x > 0.2 || accel_x < -0.2 )
   {
     collisionDetected();
   }

@@ -35,6 +35,7 @@ void setup() {
   LIS.setOutputDataRate(LIS3DHTR_DATARATE_50HZ);
   LIS.setHighSolution(true); //High solution enable
 
+  u8g2.setBusClock(100000);   // Needed for Arduino Uno
   u8g2.begin();
 
 }
